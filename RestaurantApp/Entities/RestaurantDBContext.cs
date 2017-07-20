@@ -14,7 +14,7 @@ namespace RestaurantApp.Entities
 
         public RestaurantDBContext(IHostingEnvironment env)
         {
-            Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json").Build();
+            Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json").AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true).Build();
             connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
