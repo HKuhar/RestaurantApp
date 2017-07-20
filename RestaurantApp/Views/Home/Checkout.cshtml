@@ -1,0 +1,16 @@
+﻿@model RestaurantApp.Models.Order
+
+
+<form asp-action="ProcessCheckout" method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <br />
+    <label asp-for="Street"></label>
+    <input asp-for="Street" />
+    <br />
+    <label asp-for="Number"></label>
+    <input asp-for="Number" />
+    <br />
+    <button type="submit">Done</button>
+    <a asp-action="DishesList">Cancel</a>
+</form>

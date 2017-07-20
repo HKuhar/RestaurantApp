@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RestaurantApp.Models.Order>
+
+@{ 
+    Layout = null;
+}
+
+@foreach (var order in Model)
+{
+    <div>
+        Order Id: @order.OrderId
+        Name: @order.Name
+        Address: @order.Street @order.Number
+        Time: @order.Time
+    </div>
+    <div>
+        @foreach (var item in order.Cart.cartItems)
+        {
+            <div>
+                Dish: @item.Dish.Name
+                Quantity: @item.Quantity
+            </div>
+        }
+    </div>
+    <br />
+}
+
+<a asp-action="DishesList">Back</a>

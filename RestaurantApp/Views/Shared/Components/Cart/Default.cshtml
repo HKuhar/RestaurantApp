@@ -1,0 +1,17 @@
+﻿@model RestaurantApp.Models.Cart
+
+<p>Your Cart:</p>
+@foreach (var item in Model.cartItems)
+{
+    <p>@item.Dish.Name @item.Quantity</p>   
+    <a asp-controller="Home" asp-action="RemoveCartItem" asp-route-dishId="@item.Dish.Id">Remove</a>
+}
+<br />
+<p>Total Price: @ViewBag.Total</p>
+<br />
+@if (!ViewBag.CartIsEmpty)
+{
+    <a asp-controller="Home" asp-action="Checkout">Checkout</a>
+}
+<br />
+<br />

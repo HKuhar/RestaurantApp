@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Restaurant App</title>
+</head>
+<body>
+    <h3>Restaurant App</h3>
+    <div>
+        @await Component.InvokeAsync("Cart")
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

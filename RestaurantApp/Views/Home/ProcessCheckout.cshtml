@@ -1,0 +1,22 @@
+﻿@model RestaurantApp.Models.Order
+
+@{ 
+    Layout = null;
+}
+
+<p>Checkout succesful!</p>
+<br />
+<div>
+    @Model.Name
+    @Model.Street
+    @Model.Number
+    @Model.Time
+</div>
+<div>
+    @foreach (var item in Model.Cart.cartItems)
+    {
+        <p>Dish: @item.Dish.Name Quantity: @item.Quantity</p>
+    }
+</div>
+<br />
+<a asp-action="ClearCart">Done</a>

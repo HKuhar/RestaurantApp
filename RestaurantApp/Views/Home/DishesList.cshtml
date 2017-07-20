@@ -1,0 +1,23 @@
+﻿@model ICollection<RestaurantApp.Entities.Dishes>
+
+
+@foreach (var item in Model)
+{
+    <p>@item.Id</p>
+        <p>@item.Name</p>
+        <p>@item.Description</p>
+        <p>@item.Price</p>
+        <a asp-action="Delete" asp-route-DishId="@item.Id">Delete</a>
+        <a asp-action="Edit" asp-route-DishId="@item.Id">Edit</a>
+        <a asp-action="AddToCart" asp-route-dishId="@item.Id">Add to Cart</a>
+        <br />
+        <br />
+}
+<br />
+<br />
+<a asp-action="Index">Index</a>
+<a asp-action="Add">Add Dish</a>
+<a asp-action="OrdersList">List of Orders</a>
+<div>
+    <p>@ViewBag.Random</p>
+</div>
