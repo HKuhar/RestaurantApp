@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using RestaurantApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,16 +11,12 @@ namespace RestaurantApp.Models
 {
     public class DbOrdersRepository : IOrdersRepository
     {
-        string cs;
         SqlConnection con;
         int nextId;
-        IConfigurationRoot Configuration;
 
-        public DbOrdersRepository(IHostingEnvironment env)
+        public DbOrdersRepository(ConnectionStringHelper cs)
         {
-            Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json").AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true).Build();
-            cs = Configuration.GetConnectionString("DefaultConnection");
-            con = new SqlConnection(cs);
+            con = new SqlConnection(cs.Get());
 
             SqlCommand cmd = new SqlCommand("SELECT MAX(OrderId) FROM dbo.Orders", con);
             con.Open();

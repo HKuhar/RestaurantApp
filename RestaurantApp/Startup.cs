@@ -11,6 +11,7 @@ using RestaurantApp.Models;
 using RestaurantApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using RestaurantApp.Infrastructure;
 
 namespace RestaurantApp
 {
@@ -31,6 +32,8 @@ namespace RestaurantApp
 
             //services.AddSingleton<IOrdersRepository, FakeOrdersRepository>();
             services.AddSingleton<IOrdersRepository, DbOrdersRepository>();
+
+            services.AddTransient<ConnectionStringHelper>();
 
             //services.AddSingleton<Cart>();
         }

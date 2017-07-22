@@ -3,27 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using RestaurantApp.Infrastructure;
 
 namespace RestaurantApp.Entities
 {
     public partial class RestaurantDBContext : DbContext
     {
-        public IConfigurationRoot Configuration;
-
-        private string connectionString;
-
-        public RestaurantDBContext(IHostingEnvironment env)
-        {
-            Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json").AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true).Build();
-            connectionString = Configuration.GetConnectionString("DefaultConnection");
-        }
-
         public virtual DbSet<Dishes> Dishes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(con.Get());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
