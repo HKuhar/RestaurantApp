@@ -31,7 +31,6 @@ namespace RestaurantApp.Controllers
 
         public ViewResult DishesList()
         {
-            ViewBag.Random = HttpContext.Session.GetInt32("random");
             return View(dRepository.GetDishes());
         }
 
