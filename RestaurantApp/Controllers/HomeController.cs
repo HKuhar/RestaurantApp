@@ -39,11 +39,17 @@ namespace RestaurantApp.Controllers
             return View();
         }
 
-        public RedirectToActionResult Save(Dishes dish)
+        public ActionResult Save(Dishes dish)
         {
-            dRepository.Save(dish);
-
-            return RedirectToAction("DishesList");
+            if (ModelState.IsValid)
+            {
+                dRepository.Save(dish);
+                return RedirectToAction("DishesList"); 
+            }
+            else
+            {
+                return View("Add", dish);
+            }
         }
 
         public RedirectToActionResult Delete(int dishId)
@@ -56,14 +62,21 @@ namespace RestaurantApp.Controllers
         public ViewResult Edit(int dishId)
         {
             Dishes dish = dRepository.GetDishes().FirstOrDefault(d => d.Id == dishId);
+
             return View(dish);
         }
 
-        public RedirectToActionResult Update(Dishes dish)
+        public ActionResult Update(Dishes dish)
         {
-            dRepository.Update(dish);
-
-            return RedirectToAction("DishesList");
+            if (ModelState.IsValid)
+            {
+                dRepository.Update(dish);
+                return RedirectToAction("DishesList");
+            }
+            else
+            {
+                return View("Edit", dish);
+            }
         }
 
         public RedirectToActionResult AddToCart(int dishId)
@@ -115,12 +128,17 @@ namespace RestaurantApp.Controllers
 
         public ViewResult ProcessCheckout(Order order)
         {
-            order.Time = DateTime.Now;
-            order.Cart = GetCart();
-
-            oRepository.AddOrder(order);
-
-            return View(order);
+            if (ModelState.IsValid)
+            {
+                order.Time = DateTime.Now;
+                order.Cart = GetCart();
+                oRepository.AddOrder(order);
+                return View(order);
+            }
+            else
+            {
+                return View("Checkout");
+            }
         }
 
         public RedirectToActionResult ClearCart()
